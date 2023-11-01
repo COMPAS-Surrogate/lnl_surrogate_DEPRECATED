@@ -9,7 +9,6 @@ from ..logger import logger
 
 from .utils import fmt_val_upper_lower
 from .model_metrics import ModelMetrics
-from ..data_cache import DataCache
 from ..plotting import plot_model_diagnostics
 
 
@@ -60,7 +59,7 @@ class Model(ABC, ModelMetrics):
         """Predict the output of the model for the given input. (lower, mean, upper)"""
         pass
 
-    def _post_training(self, training_data:DataCache, testing_data:DataCache, savedir, extra_kwgs={}):
+    def _post_training(self, training_data, testing_data, savedir, extra_kwgs={}):
         """Post training processing."""
         self.trained = True
         self.input_dim = training_data[0].shape[1]
