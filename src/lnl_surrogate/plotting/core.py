@@ -18,7 +18,12 @@ def plot_model_diagnostics(model, train_data, test_data, savedir: str = None, kw
     kwgs["test_col"] = kwgs.get("test_col", TEST_COL)
 
     fname1 = f"{savedir}/model_diagnostic_ppc.png"
-    plot_model_predictive_check(model, train_data, test_data, fname1, kwgs)
+    try:
+        plot_model_predictive_check(model, train_data, test_data, fname1, kwgs)
+    except Exception as e:
+        print(e)
+        print("Failed to plot model predictive check")
+
     fname2 = f"{savedir}/model_diagnostic_err.png"
     plot_predicted_vs_true(model, train_data, test_data, fname2, kwgs)
     fname3 = f"{savedir}/model_diagnostic_hist.png"

@@ -50,8 +50,8 @@ class GPFlowModel(Model):
             data=(train_in, train_out),
             kernel=gpflow.kernels.SquaredExponential(),
         )
-        if unc is not None:
-            kwgs["alpha"] = ((train_unc / train_out) ** 2).ravel()
+        # if unc is not None:
+        #     kwgs["alpha"] = ((train_unc / train_out) ** 2).ravel()
 
         self._model = gpflow.models.GPR(**kwgs)
         monitor = None

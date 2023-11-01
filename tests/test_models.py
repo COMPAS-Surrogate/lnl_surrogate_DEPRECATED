@@ -122,12 +122,11 @@ def test_models_with_unc(tmpdir, model_type: str, n_training_pts: List[int], fun
     outdir = f"{tmpdir}/test_models_unc"
     os.makedirs(outdir, exist_ok=True)
 
-    model_class = load_model("sklearngp")
+    model_class = load_model(model_type)
 
     # get some names for the model and function
-    model_name = model_class.__name__
     func_to_learn = FUNCTIONS[func_name]
-    paths = [f"{outdir}/{model_name}_{func_name}_model_n{pts}" for pts in n_training_pts]
+    paths = [f"{outdir}/{model_type}_{func_name}_model_n{pts}" for pts in n_training_pts]
 
     # TRAIN and save the model
     for pts, pth in zip(n_training_pts, paths):
@@ -153,6 +152,8 @@ def test_models_with_unc(tmpdir, model_type: str, n_training_pts: List[int], fun
             color=f"C0",
             alpha=0.5,
         )
+        plt.suptitle(f"{model_type} n{pts}")
+        # turn off axis
+        plt.gca().axis('off')
         plt.tight_layout()
-        plt.savefig(f"{outdir}/{model_name}_{n_training_pts}.png")
-        plt.show()
+        plt.savefig(f"{outdir}/{model_type}_n{pts}.png")
