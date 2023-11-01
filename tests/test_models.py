@@ -74,8 +74,8 @@ def plot(ax, true_f, models, model_names):
 @pytest.mark.parametrize(
     "model_type, n_training_pts, func_name",
     [
-        # ("gpflow", [10, 25, 50], "curvy"),
-        ("sklearngp", [25], "curvy")
+        ("gpflow", [10, 25, 50], "curvy"),
+        ("sklearngp", [10, 25, 50], "curvy")
     ],
 )
 def test_models(tmpdir, model_type: str, n_training_pts: List[int], func_name: str):
@@ -113,7 +113,7 @@ def test_models(tmpdir, model_type: str, n_training_pts: List[int], func_name: s
 @pytest.mark.parametrize(
     "model_type, n_training_pts, func_name",
     [
-        # ("gpflow", [10, 25, 50], "curvy"),
+        ("gpflow", [10, 25, 50], "curvy"),
         ("sklearngp", [10, 25, 50], "curvy")
     ],
 )
