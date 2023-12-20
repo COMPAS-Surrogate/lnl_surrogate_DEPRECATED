@@ -89,4 +89,3 @@ line_length = 79
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
-line_length = 88
