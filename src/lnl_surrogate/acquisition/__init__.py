@@ -1,9 +1,8 @@
-
 from enum import Enum, auto
+
 from .ei import EI
 from .pi import PI
 from .ucb import UCB
-
 
 
 class AcquisitionType(Enum):
@@ -21,6 +20,3 @@ class AcquisitionType(Enum):
             return UCB
         else:
             raise ValueError("AcquisitionType not recognized")
-
-
-

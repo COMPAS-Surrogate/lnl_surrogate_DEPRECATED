@@ -14,5 +14,6 @@ r"""
         :math:`\beta` is the exploration-exploitation trade-off parameter.
 """
 
-def UCB(mean:float, std:float, beta:float)->float:
-    return mean + beta*std
+
+def UCB(mean: float, std: float, beta: float) -> float:
+    return mean + beta * std

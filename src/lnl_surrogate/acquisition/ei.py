@@ -27,15 +27,20 @@ r"""
 
 """
 import numpy as np
-from scipy.special import ndtr as norm_cdf  # Cumulative distribution of the standard normal distribution.
+from scipy.special import (
+    ndtr as norm_cdf,  # Cumulative distribution of the standard normal distribution.
+)
 from scipy.stats import norm
 
-def EI(mean:float, std:float, max_val:float, tradeoff:float)->float:
+
+def EI(mean: float, std: float, max_val: float, tradeoff: float) -> float:
     z = (mean - max_val - tradeoff) / std
-    return (z * std)*norm_cdf(z) + std*norm.pdf(z)
+    return (z * std) * norm_cdf(z) + std * norm.pdf(z)
 
 
-def expected_improvement(x, model, evaluated_loss=[], greater_is_better=True, n_params=1):
+def expected_improvement(
+    x, model, evaluated_loss=[], greater_is_better=True, n_params=1
+):
     """expected_improvement
 
     Expected improvement acquisition function.

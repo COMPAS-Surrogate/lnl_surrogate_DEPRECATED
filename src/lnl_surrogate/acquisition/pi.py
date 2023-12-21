@@ -16,7 +16,9 @@ r"""
         :math:`\Phi` is the cumulative distribution function (CDF) of the standard normal distribution.
     """
 
-from scipy.special import ndtr as norm_cdf  # Cumulative distribution of the standard normal distribution.
+from scipy.special import (
+    ndtr as norm_cdf,  # Cumulative distribution of the standard normal distribution.
+)
 from scipy.stats import norm
 
 

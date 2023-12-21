@@ -12,7 +12,10 @@ import pytest
 from lnl_surrogate.models import load_model
 
 FUNCTIONS = dict(
-    curvy=lambda x: 0.2 + 0.4 * x ** 2 + 0.3 * x * np.sin(15 * x) + 0.05 * np.cos(50 * x),
+    curvy=lambda x: 0.2
+    + 0.4 * x**2
+    + 0.3 * x * np.sin(15 * x)
+    + 0.05 * np.cos(50 * x),
     wavelet=lambda x: scipy.stats.norm(0.5, 0.15).pdf(x) * np.sin(50 * x),
 )
 
@@ -73,12 +76,11 @@ def plot(ax, true_f, models, model_names):
 
 @pytest.mark.parametrize(
     "model_type, n_training_pts, func_name",
-    [
-        ("gpflow", [10, 25, 50], "curvy"),
-        ("sklearngp", [10, 25, 50], "curvy")
-    ],
+    [("gpflow", [10, 25, 50], "curvy"), ("sklearngp", [10, 25, 50], "curvy")],
 )
-def test_models(tmpdir, model_type: str, n_training_pts: List[int], func_name: str):
+def test_models(
+    tmpdir, model_type: str, n_training_pts: List[int], func_name: str
+):
     np.random.seed(0)
     outdir = f"{tmpdir}/test_models"
     os.makedirs(outdir, exist_ok=True)
@@ -88,7 +90,10 @@ def test_models(tmpdir, model_type: str, n_training_pts: List[int], func_name: s
     # get some names for the model and function
     model_name = model_class.__name__
     func_to_learn = FUNCTIONS[func_name]
-    paths = [f"{outdir}/{model_name}_{func_name}_model_n{pts}" for pts in n_training_pts]
+    paths = [
+        f"{outdir}/{model_name}_{func_name}_model_n{pts}"
+        for pts in n_training_pts
+    ]
 
     # TRAIN and save the model
     for pts, pth in zip(n_training_pts, paths):
@@ -112,12 +117,11 @@ def test_models(tmpdir, model_type: str, n_training_pts: List[int], func_name: s
 
 @pytest.mark.parametrize(
     "model_type, n_training_pts, func_name",
-    [
-        ("gpflow", [10, 25, 50], "curvy"),
-        ("sklearngp", [10, 25, 50], "curvy")
-    ],
+    [("gpflow", [10, 25, 50], "curvy"), ("sklearngp", [10, 25, 50], "curvy")],
 )
-def test_models_with_unc(tmpdir, model_type: str, n_training_pts: List[int], func_name: str):
+def test_models_with_unc(
+    tmpdir, model_type: str, n_training_pts: List[int], func_name: str
+):
     np.random.seed(0)
     outdir = f"{tmpdir}/test_models_unc"
     os.makedirs(outdir, exist_ok=True)
@@ -126,7 +130,10 @@ def test_models_with_unc(tmpdir, model_type: str, n_training_pts: List[int], fun
 
     # get some names for the model and function
     func_to_learn = FUNCTIONS[func_name]
-    paths = [f"{outdir}/{model_type}_{func_name}_model_n{pts}" for pts in n_training_pts]
+    paths = [
+        f"{outdir}/{model_type}_{func_name}_model_n{pts}"
+        for pts in n_training_pts
+    ]
 
     # TRAIN and save the model
     for pts, pth in zip(n_training_pts, paths):
@@ -139,10 +146,18 @@ def test_models_with_unc(tmpdir, model_type: str, n_training_pts: List[int], fun
 
         # LOAD plot the model for a visual check
         fig = plt.figure(figsize=(5, 3))
-        plt.errorbar(data[0].ravel(), data[1].ravel(), data[2].ravel(), fmt='ko', label='Binned Data')
+        plt.errorbar(
+            data[0].ravel(),
+            data[1].ravel(),
+            data[2].ravel(),
+            fmt="ko",
+            label="Binned Data",
+        )
         true_x = np.linspace(0, 1, 100)
         true_y = func_to_learn(true_x)
-        plt.plot(true_x, true_y, label="True", color="black", ls="--", zorder=10)
+        plt.plot(
+            true_x, true_y, label="True", color="black", ls="--", zorder=10
+        )
         low_y, mean_y, up_y = model(true_x.reshape(-1, 1))
         plt.fill_between(
             true_x,
@@ -154,6 +169,6 @@ def test_models_with_unc(tmpdir, model_type: str, n_training_pts: List[int], fun
         )
         plt.suptitle(f"{model_type} n{pts}")
         # turn off axis
-        plt.gca().axis('off')
+        plt.gca().axis("off")
         plt.tight_layout()
         plt.savefig(f"{outdir}/{model_type}_n{pts}.png")

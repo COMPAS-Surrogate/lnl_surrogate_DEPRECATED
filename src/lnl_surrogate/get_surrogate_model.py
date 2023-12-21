@@ -2,7 +2,7 @@ import os
 import random
 import shutil
 from glob import glob
-from typing import List, Optional, Union, Tuple
+from typing import List, Optional, Tuple, Union
 
 import h5py
 import matplotlib.pyplot as plt
@@ -14,16 +14,15 @@ from .models.base_model import Model
 
 
 def get_surrogate_model(
-        model_class: Union[str, ModelType],
-        model_dir: str,
-        training_data: Optional[Tuple[np.ndarray, np.ndarray]] = None,
-        clean=False,
+    model_class: Union[str, ModelType],
+    model_dir: str,
+    training_data: Optional[Tuple[np.ndarray, np.ndarray]] = None,
+    clean=False,
 ):
     """
     Get the ML surrogate model
     """
     model_class = ModelType.from_str(model_class)
-
 
     if clean and model_class.saved_model_exists(model_dir):
         shutil.rmtree(model_dir)
@@ -44,8 +43,12 @@ def get_surrogate_model(
     )
 
     metrics = model.train(
-        in_data, out_data, unc=training_data.unc,
-        verbose=True, savedir=model_dir, extra_kwgs=plt_kwgs
+        in_data,
+        out_data,
+        unc=training_data.unc,
+        verbose=True,
+        savedir=model_dir,
+        extra_kwgs=plt_kwgs,
     )
     logger.info(f"Surrogate metrics: {metrics}")
 
