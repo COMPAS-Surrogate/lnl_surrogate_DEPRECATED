@@ -1,17 +1,17 @@
 r"""
-    Upper confidence bound
+Upper confidence bound
 
-    Given a probabilistic model :math:`m` that models the objective function :math:`f`,
-    the Upper Confidence Bound at an input point :math:`x` is defined as:
+Given a probabilistic model :math:`m` that models the objective function :math:`f`,
+the Upper Confidence Bound at an input point :math:`x` is defined as:
 
-    .. math::
+.. math::
 
-        UCB(x) = \mu(x) + \beta \sigma(x)
+    UCB(x) = \mu(x) + \beta \sigma(x)
 
-    where
-        :math:`\mu(x)` is the predictive mean,
-        :math:`\sigma(x)` is the predictive standard deviation,
-        :math:`\beta` is the exploration-exploitation trade-off parameter.
+where
+    :math:`\mu(x)` is the predictive mean,
+    :math:`\sigma(x)` is the predictive standard deviation,
+    :math:`\beta` is the exploration-exploitation trade-off parameter.
 """
 
 
