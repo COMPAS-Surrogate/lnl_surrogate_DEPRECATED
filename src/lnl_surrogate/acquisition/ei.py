@@ -26,6 +26,7 @@ r"""
     provided :math:`\sigma(x) > 0`.
 
 """
+
 import numpy as np
 from scipy.special import (
     ndtr as norm_cdf,  # Cumulative distribution of the standard normal distribution.
